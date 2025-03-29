@@ -34,11 +34,13 @@ class NotificationAdapter(
             binding.descNotification.text = notification.message
             binding.dateNotification.text = notification.date
 
-            if(notification.isRead) {
-                binding.notificationIndicator.apply {
-                    val color = ContextCompat.getColor(context, R.color.neutralGray)
-                    backgroundTintList = ColorStateList.valueOf(color)
+            binding.notificationIndicator.apply {
+                val color = if(notification.isRead) {
+                    ContextCompat.getColor(context, R.color.neutralGray)
+                } else {
+                    ContextCompat.getColor(context, R.color.primaryPure)
                 }
+                backgroundTintList = ColorStateList.valueOf(color)
             }
 
             binding.notificationCard.setOnClickListener {

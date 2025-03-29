@@ -80,8 +80,87 @@ class NotificationViewModel: ViewModel() {
                     message = "Nova atualização disponível",
                     date = "29/03/2025 - 09:15 AM",
                     isRead = true
+                ),
+                // Itens adicionais:
+                NotificationMessage(
+                    id = 5,
+                    title = "Bem-vindo!",
+                    message = "Bem-vindo ao nosso aplicativo",
+                    date = "29/03/2025 - 10:50 AM",
+                    isRead = false
+                ),
+                NotificationMessage(
+                    id = 6,
+                    title = "Oferta Especial",
+                    message = "Confira nossa oferta exclusiva",
+                    date = "29/03/2025 - 11:00 AM",
+                    isRead = false
+                ),
+                NotificationMessage(
+                    id = 7,
+                    title = "Alerta de Segurança",
+                    message = "Atualize sua senha para maior segurança",
+                    date = "29/03/2025 - 11:05 AM",
+                    isRead = false
+                ),
+                NotificationMessage(
+                    id = 8,
+                    title = "Convite",
+                    message = "Você foi convidado para um evento especial",
+                    date = "29/03/2025 - 11:15 AM",
+                    isRead = false
+                ),
+                NotificationMessage(
+                    id = 9,
+                    title = "Lembrete",
+                    message = "Não esqueça da reunião agendada para hoje",
+                    date = "29/03/2025 - 11:20 AM",
+                    isRead = true
+                ),
+                NotificationMessage(
+                    id = 10,
+                    title = "Mensagem de Aniversário",
+                    message = "Feliz aniversário! Aproveite seu dia",
+                    date = "29/03/2025 - 11:30 AM",
+                    isRead = false
+                ),
+                NotificationMessage(
+                    id = 11,
+                    title = "Alerta de Atualização",
+                    message = "Nova atualização crítica disponível",
+                    date = "29/03/2025 - 11:35 AM",
+                    isRead = false
+                ),
+                NotificationMessage(
+                    id = 12,
+                    title = "Novidade",
+                    message = "Novos recursos foram adicionados ao app",
+                    date = "29/03/2025 - 11:40 AM",
+                    isRead = false
+                ),
+                NotificationMessage(
+                    id = 13,
+                    title = "Confirmação",
+                    message = "Seu pedido foi confirmado com sucesso",
+                    date = "29/03/2025 - 11:45 AM",
+                    isRead = true
+                ),
+                NotificationMessage(
+                    id = 14,
+                    title = "Desconto Exclusivo",
+                    message = "Aproveite um desconto exclusivo para você",
+                    date = "29/03/2025 - 11:50 AM",
+                    isRead = false
+                ),
+                NotificationMessage(
+                    id = 15,
+                    title = "Alerta de Mensagem",
+                    message = "Você recebeu uma nova mensagem",
+                    date = "29/03/2025 - 11:55 AM",
+                    isRead = false
                 )
             )
+
 
             delay(3000)
             _notificationsState.value = notificationsState.value?.copy(

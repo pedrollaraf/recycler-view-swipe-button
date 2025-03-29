@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -49,7 +50,9 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = NotificationAdapter(
             onClick = { notification ->
+                Log.d("BRATISLAV:", "NOTIFICATION READ: ${notification.title} = ${notification.isRead}")
                 viewModel.markAsRead(notification)
+                swipeHelper.resetSwipeState()
             }
         )
 
@@ -70,8 +73,11 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     binding.tvEmptyList.visibility = View.GONE
                     binding.rvNotifications.visibility = View.VISIBLE
+                    notificationState.notifications.map {
+                        Log.d("BRATISLAV:", "NOTIFICATION READ: ${it.title} = ${it.isRead}")
+                    }
+                    adapter.submitList(notificationState.notifications)
                 }
-                adapter.submitList(notificationState.notifications)
             }
         }
 
@@ -88,42 +94,35 @@ class MainActivity : AppCompatActivity() {
                 if (position != RecyclerView.NO_POSITION) {
                     val notification = adapter.currentList[position]
                     notification.isRead.let { isRead ->
-                        if (isRead) {
-                            underlayButtons.add(
-                                UnderlayButton(
-                                    text = getString(R.string.mark_as_unread),
-                                    imageResId = R.drawable.ic_notification_unread_light,
-                                    backgroundColor = ContextCompat.getColor(this@MainActivity, R.color.notificationBackgroundColor),
-                                    textColor = ContextCompat.getColor(this@MainActivity,R.color.notificationTextColor),
-                                    textSize = 14f,
-                                    textStyle = Typeface.BOLD,
-                                    iconSize = 16f,
-                                    iconTextSpacing = 8f,
-                                    clickListener = {
+                        underlayButtons.add(
+                            UnderlayButton(
+                                text = if(isRead) getString(R.string.mark_as_unread) else getString(R.string.mark_as_read),
+                                imageResId = if(isRead) R.drawable.ic_notification_unread_light else R.drawable.ic_notification_read_light,
+                                backgroundColor = ContextCompat.getColor(this@MainActivity, R.color.notificationBackgroundColor),
+                                textColor = ContextCompat.getColor(this@MainActivity,R.color.notificationTextColor),
+                                textSize = 14f,
+                                textStyle = Typeface.BOLD,
+                                iconSize = 16f,
+                                iconTextSpacing = 8f,
+                                clickListener = {
+                                    Log.d("BRATISLAV:", "NOTIFICATION READ: ${notification.title} = $isRead")
+                                    if(isRead) {
                                         viewModel.markAsUnRead(notification)
-                                    }
-                                )
-                            )
-                        } else {
-                            underlayButtons.add(
-                                UnderlayButton(
-                                    text = getString(R.string.mark_as_read),
-                                    imageResId = R.drawable.ic_notification_read_light,
-                                    backgroundColor = ContextCompat.getColor(this@MainActivity, R.color.notificationBackgroundColor),
-                                    textColor = ContextCompat.getColor(this@MainActivity,R.color.notificationTextColor),
-                                    textSize = 14f,
-                                    textStyle = Typeface.BOLD,
-                                    iconSize = 16f,
-                                    iconTextSpacing = 8f,
-                                    clickListener = {
+                                    } else {
                                         viewModel.markAsRead(notification)
                                     }
-                                )
+                                }
                             )
-                        }
+                        )
                     }
                 }
             }
         }
+
+        binding.rvNotifications.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                swipeHelper.resetSwipeState()
+            }
+        })
     }
 }

@@ -24,7 +24,7 @@ abstract class SwipeHelper(
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
     companion object {
-        private const val DEFAULT_SWIPE_THRESHOLD = 0.5f
+        private const val DEFAULT_SWIPE_THRESHOLD = 0.3f
     }
 
     private var swipedPos: Int = -1
@@ -92,7 +92,6 @@ abstract class SwipeHelper(
 
         buttons = buttonsBuffer[swipedPos]?.toMutableList() ?: mutableListOf()
         buttonsBuffer.clear()
-        swipeThreshold = DEFAULT_SWIPE_THRESHOLD * buttons.size * context.dpToPx(buttonWidthDp).toInt()
         recoverSwipedItem()
     }
 
