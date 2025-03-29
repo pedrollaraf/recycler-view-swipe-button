@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">recyclerview-swipe-button</string>
+    <string name="notifications_list">Lista de notificações</string>
+    <string name="empty_list">Empty List</string>
+    <string name="mark_as_read">Marcar como lido</string>
+    <string name="mark_as_unread">Marcar como não lido</string>
+</resources>

@@ -1,0 +1,24 @@
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Recyclerviewswipebutton" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.Recyclerviewswipebutton" parent="Base.Theme.Recyclerviewswipebutton" />
+
+    <style name="subtitle01" parent="TextAppearance.AppCompat.Large">
+        <item name="android:fontFamily">@font/signika_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight" ns1:targetApi="p">21dp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="body02" parent="TextAppearance.AppCompat.Large">
+        <item name="android:fontFamily">@font/signika_bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight" ns1:targetApi="p">18dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+</resources>
