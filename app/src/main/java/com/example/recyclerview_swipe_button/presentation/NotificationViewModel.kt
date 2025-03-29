@@ -10,15 +10,15 @@ import kotlinx.coroutines.launch
 
 class NotificationViewModel: ViewModel() {
 
+    private val _notificationsState = MutableLiveData<NotificationState>(NotificationState())
+    val notificationsState: LiveData<NotificationState> get() = _notificationsState
+
     init {
         getNotifications()
     }
 
-    private val _notifications = MutableLiveData<List<NotificationMessage>>()
-    val notifications: LiveData<List<NotificationMessage>> get() = _notifications
-
     fun markAsRead(notification: NotificationMessage) {
-        val currentList = _notifications.value.orEmpty()
+        val currentList = _notificationsState.value?.notifications.orEmpty()
         val updatedList = currentList.map { item ->
             if (item.id == notification.id) {
                 item.copy(isRead = true)
@@ -26,11 +26,13 @@ class NotificationViewModel: ViewModel() {
                 item
             }
         }
-        _notifications.value = updatedList
+        _notificationsState.value = notificationsState.value?.copy(
+            notifications = updatedList
+        )
     }
 
     fun markAsUnRead(notification: NotificationMessage) {
-        val currentList = _notifications.value.orEmpty()
+        val currentList = notificationsState.value?.notifications.orEmpty()
         val updatedList = currentList.map { item ->
             if (item.id == notification.id) {
                 item.copy(isRead = false)
@@ -38,13 +40,18 @@ class NotificationViewModel: ViewModel() {
                 item
             }
         }
-        _notifications.value = updatedList
+        _notificationsState.value = notificationsState.value?.copy(
+            notifications = updatedList
+        )
     }
 
 
 
     private fun getNotifications() {
         viewModelScope.launch {
+            _notificationsState.value = notificationsState.value?.copy(
+                isLoading = true
+            )
             val list = listOf(
                 NotificationMessage(
                     id = 1,
@@ -77,7 +84,12 @@ class NotificationViewModel: ViewModel() {
             )
 
             delay(3000)
-            _notifications.postValue(list)
+            _notificationsState.value = notificationsState.value?.copy(
+                isLoading = false
+            )
+            _notificationsState.value = notificationsState.value?.copy(
+                notifications = list
+            )
         }
     }
 
