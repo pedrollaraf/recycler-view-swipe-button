@@ -1,4 +1,4 @@
-package com.example.recyclerview_swipe_button.presentation
+package com.example.recyclerview_swipe_button.presentation.ui
 
 import com.example.recyclerview_swipe_button.utils.dpToPx
 import android.content.Context

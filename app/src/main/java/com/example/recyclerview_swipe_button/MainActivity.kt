@@ -11,10 +11,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerview_swipe_button.databinding.ActivityMainBinding
-import com.example.recyclerview_swipe_button.presentation.NotificationAdapter
-import com.example.recyclerview_swipe_button.presentation.NotificationViewModel
-import com.example.recyclerview_swipe_button.presentation.SwipeHelper
-import com.example.recyclerview_swipe_button.presentation.UnderlayButton
+import com.example.recyclerview_swipe_button.presentation.ui.NotificationAdapter
+import com.example.recyclerview_swipe_button.presentation.viewmodel.NotificationViewModel
+import com.example.recyclerview_swipe_button.presentation.ui.SwipeHelper
+import com.example.recyclerview_swipe_button.presentation.ui.UnderlayButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {

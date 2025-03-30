@@ -1,4 +1,4 @@
-package com.example.recyclerview_swipe_button.presentation
+package com.example.recyclerview_swipe_button.presentation.ui
 
 import android.content.res.ColorStateList
 import com.example.recyclerview_swipe_button.databinding.ItemNotificationBinding

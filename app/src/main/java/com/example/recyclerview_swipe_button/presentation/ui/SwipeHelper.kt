@@ -1,4 +1,4 @@
-package com.example.recyclerview_swipe_button.presentation
+package com.example.recyclerview_swipe_button.presentation.ui
 
 import android.annotation.SuppressLint
 import android.content.Context

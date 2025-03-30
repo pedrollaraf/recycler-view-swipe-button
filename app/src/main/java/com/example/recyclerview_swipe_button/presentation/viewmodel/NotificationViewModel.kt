@@ -1,4 +1,4 @@
-package com.example.recyclerview_swipe_button.presentation
+package com.example.recyclerview_swipe_button.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,8 +26,8 @@ class NotificationViewModel: ViewModel() {
                 item
             }
         }
-        _notificationsState.value = notificationsState.value?.copy(
-            notifications = updatedList
+        _notificationsState.postValue(
+            notificationsState.value?.copy(notifications = updatedList)
         )
     }
 
@@ -40,8 +40,8 @@ class NotificationViewModel: ViewModel() {
                 item
             }
         }
-        _notificationsState.value = notificationsState.value?.copy(
-            notifications = updatedList
+        _notificationsState.postValue(
+            notificationsState.value?.copy(notifications = updatedList)
         )
     }
 
@@ -49,9 +49,7 @@ class NotificationViewModel: ViewModel() {
 
     private fun getNotifications() {
         viewModelScope.launch {
-            _notificationsState.value = notificationsState.value?.copy(
-                isLoading = true
-            )
+            _notificationsState.postValue(notificationsState.value?.copy(isLoading = true))
             val list = listOf(
                 NotificationMessage(
                     id = 1,
@@ -163,11 +161,8 @@ class NotificationViewModel: ViewModel() {
 
 
             delay(3000)
-            _notificationsState.value = notificationsState.value?.copy(
-                isLoading = false
-            )
-            _notificationsState.value = notificationsState.value?.copy(
-                notifications = list
+            _notificationsState.postValue(
+                notificationsState.value?.copy(isLoading = false, notifications = list)
             )
         }
     }

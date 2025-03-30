@@ -1,4 +1,4 @@
-package com.example.recyclerview_swipe_button.presentation
+package com.example.recyclerview_swipe_button.presentation.viewmodel
 
 import com.example.recyclerview_swipe_button.domain.NotificationMessage
 

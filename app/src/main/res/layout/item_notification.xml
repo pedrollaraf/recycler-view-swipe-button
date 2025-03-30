@@ -3,7 +3,7 @@
     android:id="@+id/notificationCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/app_background"
+    android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -91,15 +91,6 @@
             android:textColor="@color/neutralGray" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <Button
-        android:id="@+id/btnAction"
-        android:layout_width="110dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textSize="14sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
