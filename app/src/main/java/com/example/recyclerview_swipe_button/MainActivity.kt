@@ -1,14 +1,7 @@
 package com.example.recyclerview_swipe_button
 
-import android.annotation.SuppressLint
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var swipeHelper: SwipeHelper
 
-    @SuppressLint("ClickableViewAccessibility", "NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -50,10 +42,6 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = NotificationAdapter(
             onClick = { notification ->
-                Log.d(
-                    "BRATISLAV:",
-                    "NOTIFICATION READ: ${notification.title} = ${notification.isRead}"
-                )
                 viewModel.markAsRead(notification)
                 swipeHelper.resetSwipeState()
             }
@@ -76,9 +64,6 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     binding.tvEmptyList.visibility = View.GONE
                     binding.rvNotifications.visibility = View.VISIBLE
-                    notificationState.notifications.map {
-                        Log.d("BRATISLAV:", "NOTIFICATION READ: ${it.title} = ${it.isRead}")
-                    }
                     adapter.submitList(notificationState.notifications)
                     swipeHelper.clearButtonsBuffer()
                 }
@@ -116,10 +101,6 @@ class MainActivity : AppCompatActivity() {
                             iconSize = 16f,
                             iconTextSpacing = 8f,
                             clickListener = {
-                                Log.d(
-                                    "BRATISLAV:",
-                                    "NOTIFICATION READ: ${notification.title} = ${notification.isRead}"
-                                )
                                 if (notification.isRead) {
                                     viewModel.markAsUnRead(notification)
                                 } else {
@@ -135,7 +116,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvNotifications.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                swipeHelper.resetSwipeState() // Reset swipe state on every scroll event
+                swipeHelper.resetSwipeState()
             }
         })
     }
