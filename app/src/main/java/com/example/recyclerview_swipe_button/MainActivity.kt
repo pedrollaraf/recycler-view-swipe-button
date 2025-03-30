@@ -50,7 +50,10 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = NotificationAdapter(
             onClick = { notification ->
-                Log.d("BRATISLAV:", "NOTIFICATION READ: ${notification.title} = ${notification.isRead}")
+                Log.d(
+                    "BRATISLAV:",
+                    "NOTIFICATION READ: ${notification.title} = ${notification.isRead}"
+                )
                 viewModel.markAsRead(notification)
                 swipeHelper.resetSwipeState()
             }
@@ -61,13 +64,13 @@ class MainActivity : AppCompatActivity() {
 
 
         viewModel.notificationsState.observe(this) { notificationState ->
-            if(notificationState.isLoading) {
+            if (notificationState.isLoading) {
                 binding.piLoading.visibility = View.VISIBLE
                 binding.tvEmptyList.visibility = View.GONE
                 binding.rvNotifications.visibility = View.GONE
             } else {
                 binding.piLoading.visibility = View.GONE
-                if(notificationState.notifications.isEmpty()) {
+                if (notificationState.notifications.isEmpty()) {
                     binding.tvEmptyList.visibility = View.VISIBLE
                     binding.rvNotifications.visibility = View.GONE
                 } else {
@@ -77,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                         Log.d("BRATISLAV:", "NOTIFICATION READ: ${it.title} = ${it.isRead}")
                     }
                     adapter.submitList(notificationState.notifications)
+                    swipeHelper.clearButtonsBuffer()
                 }
             }
         }
@@ -93,35 +97,45 @@ class MainActivity : AppCompatActivity() {
                 val position = viewHolder.adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val notification = adapter.currentList[position]
-                    notification.isRead.let { isRead ->
-                        underlayButtons.add(
-                            UnderlayButton(
-                                text = if(isRead) getString(R.string.mark_as_unread) else getString(R.string.mark_as_read),
-                                imageResId = if(isRead) R.drawable.ic_notification_unread_light else R.drawable.ic_notification_read_light,
-                                backgroundColor = ContextCompat.getColor(this@MainActivity, R.color.notificationBackgroundColor),
-                                textColor = ContextCompat.getColor(this@MainActivity,R.color.notificationTextColor),
-                                textSize = 14f,
-                                textStyle = Typeface.BOLD,
-                                iconSize = 16f,
-                                iconTextSpacing = 8f,
-                                clickListener = {
-                                    Log.d("BRATISLAV:", "NOTIFICATION READ: ${notification.title} = $isRead")
-                                    if(isRead) {
-                                        viewModel.markAsUnRead(notification)
-                                    } else {
-                                        viewModel.markAsRead(notification)
-                                    }
+                    underlayButtons.add(
+                        UnderlayButton(
+                            text = if (notification.isRead) getString(R.string.mark_as_unread) else getString(
+                                R.string.mark_as_read
+                            ),
+                            imageResId = if (notification.isRead) R.drawable.ic_notification_unread_light else R.drawable.ic_notification_read_light,
+                            backgroundColor = ContextCompat.getColor(
+                                this@MainActivity,
+                                R.color.notificationBackgroundColor
+                            ),
+                            textColor = ContextCompat.getColor(
+                                this@MainActivity,
+                                R.color.notificationTextColor
+                            ),
+                            textSize = 14f,
+                            textStyle = Typeface.BOLD,
+                            iconSize = 16f,
+                            iconTextSpacing = 8f,
+                            clickListener = {
+                                Log.d(
+                                    "BRATISLAV:",
+                                    "NOTIFICATION READ: ${notification.title} = ${notification.isRead}"
+                                )
+                                if (notification.isRead) {
+                                    viewModel.markAsUnRead(notification)
+                                } else {
+                                    viewModel.markAsRead(notification)
                                 }
-                            )
+                            }
                         )
-                    }
+                    )
                 }
             }
         }
 
         binding.rvNotifications.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                swipeHelper.resetSwipeState()
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                swipeHelper.resetSwipeState() // Reset swipe state on every scroll event
             }
         })
     }

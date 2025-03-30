@@ -134,6 +134,10 @@ abstract class SwipeHelper(
         super.onChildDraw(c, recyclerView, viewHolder, translationX, dY, actionState, isCurrentlyActive)
     }
 
+    fun clearButtonsBuffer() {
+        buttonsBuffer.clear()
+    }
+
     private fun recoverSwipedItem() {
         while (recoverQueue.isNotEmpty()) {
             val pos = recoverQueue.poll()
